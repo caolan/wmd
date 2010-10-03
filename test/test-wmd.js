@@ -1,16 +1,16 @@
 var wmd = require('../lib/wmd');
 
-exports['basic markdown'] = function (test) {
+
+exports['processor'] = function (test) {
     test.equals(
-        wmd.html('Markdown *rocks*.'),
+        wmd.processor('Markdown *rocks*.'),
         '<p>Markdown <em>rocks</em>.</p>'
     );
     test.done();
 };
 
-exports['preprocessor execution'] = function (test) {
-    test.expect(4);
-
+exports['preprocess'] = function (test) {
+    test.expect(3);
     var options = {
         preprocessors: [
             function (content) {
@@ -23,15 +23,34 @@ exports['preprocessor execution'] = function (test) {
             }
         ]
     };
+    test.equals(wmd.preprocess('original markdown', options), 'preprocessor 2');
+    test.done();
+};
 
-    var _processor = wmd.processor;
+exports['wmd'] = function (test) {
+    test.expect(5);
+
+    // create a copy of all exported functions so we can safely stub them
+    var _wmd = {};
+    for (var k in wmd) _wmd[k] = wmd[k];
+
+    wmd.readOptions = function (options) {
+        test.equals(options, 'options');
+        return 'read options';
+    };
+    wmd.preprocess = function (content, options) {
+        test.equals(content, 'content');
+        test.equals(options, 'read options');
+        return 'preprocessed';
+    };
     wmd.processor = function (content) {
-        test.equals(content, 'preprocessor 2');
+        test.equals(content, 'preprocessed');
         return 'processed';
     };
 
-    test.equals(wmd.html('original markdown', options), 'processed');
+    test.equals(wmd('content', 'options'), 'processed');
 
-    wmd.processor = _processor;
+    // reinstate original exported functions
+    for (var k in _wmd) wmd[k] = _wmd;
     test.done();
 };
