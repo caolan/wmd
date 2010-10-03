@@ -9,7 +9,8 @@ exports['basic markdown'] = function (test) {
 };
 
 exports['preprocessor execution'] = function (test) {
-    test.expect(3);
+    test.expect(4);
+
     var options = {
         preprocessors: [
             function (content) {
@@ -22,9 +23,15 @@ exports['preprocessor execution'] = function (test) {
             }
         ]
     };
-    test.equals(
-        wmd.html('original markdown', options),
-        '<p>preprocessor 2</p>'
-    );
+
+    var _processor = wmd.processor;
+    wmd.processor = function (content) {
+        test.equals(content, 'preprocessor 2');
+        return 'processed';
+    };
+
+    test.equals(wmd.html('original markdown', options), 'processed');
+
+    wmd.processor = _processor;
     test.done();
 };
