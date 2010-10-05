@@ -1,5 +1,6 @@
 var wmd = require('../lib/wmd'),
-    underscores = wmd.preprocessors.underscores;
+    underscores = wmd.preprocessors.underscores,
+    metadata = wmd.preprocessors.metadata;
 
 
 var mkTest = function (test, fn) {
@@ -37,3 +38,45 @@ exports['underscores'] = function (test) {
     testOutput("# foo\n# bar", "# foo\n# bar");
     testOutput("* foo\n* bar", "* foo\n* bar");
 */
+
+exports['metadata'] = function (test) {
+    test.same(
+        metadata({
+            markdown: 'property: value'
+        }),
+        {
+            markdown: '',
+            metadata: {property: 'value'}
+        }
+    );
+    test.same(
+        metadata({
+            markdown: 'prop1: value1\n' +
+                      'prop_two: value2\n' +
+                      '\n' +
+                      'markdown'
+        }),
+        {
+            markdown: 'markdown',
+            metadata: {prop1: 'value1', prop_two: 'value2'}
+        }
+    );
+    test.same(
+        metadata({
+            markdown: 'prop1: value with spaces\n' +
+                      'prop_two: value2\n' +
+                      '          double-line\n' +
+                      '   \n' +
+                      '\n' +
+                      'markdown'
+        }),
+        {
+            markdown: 'markdown',
+            metadata: {
+                prop1: 'value with spaces',
+                prop_two: 'value2\ndouble-line'
+            }
+        }
+    );
+    test.done();
+};
