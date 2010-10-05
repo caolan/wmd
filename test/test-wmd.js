@@ -31,8 +31,9 @@ exports['wmd'] = function (test) {
     test.expect(8);
 
     // create a copy of all exported functions so we can safely stub them
-    var _wmd = {};
-    for (var k in wmd) _wmd[k] = wmd[k];
+    var _readOptions = wmd.readOptions;
+    var _preprocess = wmd.preprocess;
+    var _processor = wmd.processor;
 
     wmd.readOptions = function (options) {
         test.equals(options, 'options');
@@ -56,6 +57,18 @@ exports['wmd'] = function (test) {
     test.equals(doc.markdown, 'preprocessed');
 
     // reinstate original exported functions
-    for (var k in _wmd) wmd[k] = _wmd;
+    wmd.readOptions = _readOptions;
+    wmd.preprocess = _preprocess;
+    wmd.processor = _processor;
+    test.done();
+};
+
+exports['readOptions - defaults'] = function (test) {
+    test.same(wmd.readOptions(), {
+        preprocessors: [
+            wmd.preprocessors.metadata,
+            wmd.preprocessors.underscores
+        ]
+    });
     test.done();
 };
