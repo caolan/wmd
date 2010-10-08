@@ -70,6 +70,20 @@ An object containing core preprocessor functions:
           raw: "property1: some value\nproperty2: multi\nline\nvalue\n\n# Markdown goes here"
       }
 
+Adding preprocessors to wmd:
+
+    var wmd = require('wmd');
+    var html = wmd('Markdown *rocks*.', {
+        preprocessors: [
+            function (doc) {
+                doc.metadata += '.. even more!';
+                return doc;
+            }
+        ]
+    });
+
+By default, the underscores and metadata preprocessors will be used.
+
 
 ## wmd.processor(markdown)
 
