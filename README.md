@@ -76,7 +76,7 @@ Adding preprocessors to wmd:
     var html = wmd('Markdown *rocks*.', {
         preprocessors: [
             function (doc) {
-                doc.metadata += '.. even more!';
+                doc.markdown += '.. even more!';
                 return doc;
             }
         ]
