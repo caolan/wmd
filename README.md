@@ -42,32 +42,6 @@ The string representation of a doc object (doc.toString()) is the same as
 doc.html.
 
 
-## wmd.processor(markdown)
-
-* __markdown__ - A string containing Markdown.
-
-The function which performs the conversion from markdown to html. By default
-this is just Showdown's makeHTML function.
-
-
-## wmd.preprocess(doc, options)
-
-* __doc__ - A doc object
-* __options__ - (optional) An object containing options (see options section)
-
-Applies the preprocessor functions defined in options to the doc (usually
-updating doc.markdown, sometimes adding new properties) before the doc is
-passed to the processor.
-
-
-## wmd.readOptions(options)
-
-* __options__ - (optional) An object containing options (see options section)
-
-You would not normally need to call this directly. This function adds default
-options to those passed to the main wmd function.
-
-
 ## wmd.preprocessors
 
 An object containing core preprocessor functions:
@@ -95,6 +69,32 @@ An object containing core preprocessor functions:
           markdown: "# Markdown goes here",
           raw: "property1: some value\nproperty2: multi\nline\nvalue\n\n# Markdown goes here"
       }
+
+
+## wmd.processor(markdown)
+
+* __markdown__ - A string containing Markdown.
+
+The function which performs the conversion from markdown to html. By default
+this is just Showdown's makeHTML function.
+
+
+## wmd.preprocess(doc, options)
+
+* __doc__ - A doc object
+* __options__ - (optional) An object containing options (see options section)
+
+Applies the preprocessor functions defined in options to the doc (usually
+updating doc.markdown, sometimes adding new properties) before the doc is
+passed to the processor.
+
+
+## wmd.readOptions(options)
+
+* __options__ - (optional) An object containing options (see options section)
+
+You would not normally need to call this directly. This function adds default
+options to those passed to the main wmd function.
 
 
 ## Options
