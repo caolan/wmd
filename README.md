@@ -77,24 +77,24 @@ An object containing core preprocessor functions:
 * __metadata__ - takes metatdata information from the top of a markdown file
   and adds it to doc.metadata.
 
-    property1: some value
-    property2: multi
-               line
-               value
+      property1: some value
+      property2: multi
+                 line
+                 value
 
-    # Markdown goes here
+      # Markdown goes here
 
   Would result in the following doc object:
 
-    {
-        metadata: {
-            property1: "some value",
-            property2: "multi\nline\nvalue"
-        },
-        html: "<h1>Markdown goes here</h1>",
-        markdown: "# Markdown goes here",
-        raw: "property1: some value\nproperty2: multi\nline\nvalue\n\n# Markdown goes here"
-    }
+      {
+          metadata: {
+              property1: "some value",
+              property2: "multi\nline\nvalue"
+          },
+          html: "<h1>Markdown goes here</h1>",
+          markdown: "# Markdown goes here",
+          raw: "property1: some value\nproperty2: multi\nline\nvalue\n\n# Markdown goes here"
+      }
 
 
 ## Options
