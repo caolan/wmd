@@ -15,66 +15,67 @@ preprocessing, and some default preprocessors.
     console.log(html);
 
 
-## Documentation
+# Documentation
 
 
-### wmd(markdown, options)
+## wmd(markdown, options)
 
-__markdown__ - A string containing Markdown.
-__options__ - (optional) An object containing options (see options section)
+* __markdown__ - A string containing Markdown.
+* __options__ - (optional) An object containing options (see options section)
 
-The main function for converting Markdown to HTML, and normally the only function
-you'll need ot use. Applies all preprocessors defined in options before passing the
-result to Showdown for the final rendering.
+The main function for converting Markdown to HTML, and normally the only
+function you'll need ot use. Applies all preprocessors defined in options
+before passing the result to Showdown for the final rendering.
 
 By default, the underscores and metadata preprocessors are used.
 
-This function returns a __doc__ object. The contents of the doc object may differ
-depending on the preprocessors used, but will always contain the following:
+This function returns a __doc__ object. The contents of the doc object may
+differ depending on the preprocessors used, but will always contain the
+following:
 
-* doc.html - The final HTML output of the conversion.
-* doc.markdown - The markdown text passed to the processsor after all preprocesor
-  functions have been applied.
-* doc.raw - The raw string before preprocessors were applied.
+* __doc.html__ - The final HTML output of the conversion.
+* __doc.markdown__ - The markdown text passed to the processsor after all
+  preprocesor functions have been applied.
+* __doc.raw__ - The raw string before preprocessors were applied.
 
-The string representation of a doc object (doc.toString()) is the same as doc.html.
-
-
-### wmd.processor(markdown)
-
-__markdown__ - A string containing Markdown.
-
-The function which performs the conversion from markdown to html. By default this is
-just Showdown's makeHTML function.
+The string representation of a doc object (doc.toString()) is the same as
+doc.html.
 
 
-### wmd.preprocess(doc, options)
+## wmd.processor(markdown)
 
-__doc__ - A doc object
-__options__ - (optional) An object containing options (see options section)
+* __markdown__ - A string containing Markdown.
 
-Applies the preprocessor functions defined in options to the doc (usually updating
-doc.markdown, sometimes adding new properties) before the doc is passed to the
-processor.
+The function which performs the conversion from markdown to html. By default
+this is just Showdown's makeHTML function.
 
 
-### wmd.readOptions(options)
+## wmd.preprocess(doc, options)
 
-__options__ - (optional) An object containing options (see options section)
+* __doc__ - A doc object
+* __options__ - (optional) An object containing options (see options section)
+
+Applies the preprocessor functions defined in options to the doc (usually
+updating doc.markdown, sometimes adding new properties) before the doc is
+passed to the processor.
+
+
+## wmd.readOptions(options)
+
+* __options__ - (optional) An object containing options (see options section)
 
 You would not normally need to call this directly. This function adds default
 options to those passed to the main wmd function.
 
 
-### wmd.preprocessors
+## wmd.preprocessors
 
 An object containing core preprocessor functions:
 
-__underscores__ - code-friendly underscore processing taken from GitHub Flavored
-Markdown. This means the bar in foo\_bar\_baz does not get emphasis.
-
-__metadata__ - takes metatdata information from the top of a markdown file and adds
-it to doc.metadata.
+* __underscores__ - code-friendly underscore processing taken from GitHub
+  Flavored Markdown. This means the bar in foo\_bar\_baz does not get emphasis.
+* __metadata__ - takes metatdata information from the top of a markdown file
+  and adds it to doc.metadata.
 
     property1: some value
     property2: multi
@@ -83,7 +84,7 @@ it to doc.metadata.
 
     # Markdown goes here
 
-Would result in the following doc object:
+  Would result in the following doc object:
 
     {
         metadata: {
@@ -96,8 +97,8 @@ Would result in the following doc object:
     }
 
 
-### Options
+## Options
 
-__preprocessors__ - An array of functions which can transform the document before
-its passed to the processor function. By default the underscores and metadata
-preprocessors are used.
+* __preprocessors__ - An array of functions which can transform the document
+  before its passed to the processor function. By default the underscores and
+  metadata preprocessors are used.
