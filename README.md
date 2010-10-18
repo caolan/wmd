@@ -4,7 +4,7 @@ A Markdown parser for CommonJS (and node.js) based on the excellent
 [Showdown](http://attacklab.net/showdown/).
 
 Essentially WMD, is just a wrapper around Showdown, with a few hooks for
-preprocessing, and some default preprocessors.
+preprocessing, and some default preprocessors and postprocessors.
 
 
 ## Example
@@ -84,6 +84,29 @@ Adding preprocessors to wmd:
 
 By default, the underscores and metadata preprocessors will be used.
 
+## wmd.postprocessors
+
+An object containing core postprocessor functions:
+
+* __jsdom__ - uses jsdom to add doc.window containing the HTML generated from
+  markdown
+* __first_para__ - adds doc.first_para containing the text in the first p tag
+* __heading__ - adds doc.heading containing the text in the first h1 tag
+
+Adding postprocessors to wmd:
+
+    var wmd = require('wmd');
+    var html = wmd('Markdown *rocks*.', {
+        postprocessors: [
+            function (doc) {
+                doc.html += '<b>more html stuff</b>';
+                return doc;
+            }
+        ]
+    });
+
+By default, no postprocessors will be used.
+
 
 ## wmd.processor(markdown)
 
@@ -103,6 +126,14 @@ updating doc.markdown, sometimes adding new properties) before the doc is
 passed to the processor.
 
 
+## wmd.postprocess(doc, options)
+
+* __doc__ - A doc object
+* __options__ - (optional) An object containing options (see options section)
+
+Applies the postprocessor functions defined in options to the doc.
+
+
 ## wmd.readOptions(options)
 
 * __options__ - (optional) An object containing options (see options section)
@@ -116,3 +147,6 @@ options to those passed to the main wmd function.
 * __preprocessors__ - An array of functions which can transform the document
   before its passed to the processor function. By default the underscores and
   metadata preprocessors are used.
+* __postprocessors__ - An array of functions which can transform the document
+  after its been passed to the processor function. By default, no
+  postprocessors are used.
