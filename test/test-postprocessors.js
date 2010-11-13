@@ -1,7 +1,8 @@
 var wmd = require('../lib/wmd'),
     jsdom = wmd.postprocessors.jsdom,
     first_para = wmd.postprocessors.first_para,
-    heading = wmd.postprocessors.heading;
+    heading = wmd.postprocessors.heading,
+    html_no_heading = wmd.postprocessors.html_no_heading;
 
 
 function createDoc() {
@@ -49,5 +50,22 @@ exports['heading without h1 tag'] = function (test) {
     var doc = {html: '<p>test</p>'};
     var doc2 = heading(doc);
     test.equal(doc2.heading, null);
+    test.done();
+};
+
+exports['html_no_heading'] = function (test) {
+    var doc = createDoc();
+    var doc2 = html_no_heading(doc);
+    test.equal(
+        doc2.html_no_heading,
+        '<p>first paragraph</p><p>second paragrapg</p>'
+    );
+    test.done();
+};
+
+exports['html_no_heading without h1 tag'] = function (test) {
+    var doc = {html: '<p>test</p>'};
+    var doc2 = html_no_heading(doc);
+    test.equal(doc2.html_no_heading, '<p>test</p>');
     test.done();
 };
