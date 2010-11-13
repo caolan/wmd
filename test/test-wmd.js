@@ -101,7 +101,8 @@ exports['readOptions - defaults'] = function (test) {
         preprocessors: [
             wmd.preprocessors.metadata,
             wmd.preprocessors.underscores
-        ]
+        ],
+        postprocessors: []
     });
     test.done();
 };
