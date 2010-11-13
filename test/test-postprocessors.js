@@ -1,6 +1,6 @@
 var wmd = require('../lib/wmd'),
     jsdom = wmd.postprocessors.jsdom,
-    first_para = wmd.postprocessors.first_para,
+    first_paragraph = wmd.postprocessors.first_paragraph,
     heading = wmd.postprocessors.heading,
     html_no_heading = wmd.postprocessors.html_no_heading;
 
@@ -25,17 +25,17 @@ exports['jsdom'] = function (test) {
     test.done();
 };
 
-exports['first_para'] = function (test) {
+exports['first_paragraph'] = function (test) {
     var doc = createDoc();
-    var doc2 = first_para(doc);
-    test.equal(doc2.first_para, 'first paragraph');
+    var doc2 = first_paragraph(doc);
+    test.equal(doc2.first_paragraph, 'first paragraph');
     test.done();
 };
 
-exports['first_para without p tags'] = function (test) {
+exports['first_paragraph without p tags'] = function (test) {
     var doc = {html: '<h1>test</h1>'};
-    var doc2 = first_para(doc);
-    test.equal(doc2.first_para, null);
+    var doc2 = first_paragraph(doc);
+    test.equal(doc2.first_paragraph, null);
     test.done();
 };
 
