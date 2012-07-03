@@ -1,0 +1,9 @@
+{
+    "name": "wmd",
+    "description": "A full-featured markdown processor based on Showdown",
+    "version": "0.2.0",
+    "dependencies": {
+        "jsdom": "0.2.14",
+        "htmlparser": "1.7.6"
+    }
+}
